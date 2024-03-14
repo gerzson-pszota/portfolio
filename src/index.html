@@ -99,6 +99,73 @@
         <div class="project-wrapper">
           <h2 class="section-title dark-blue-text">Projects</h2>
 
+<!-- Notice: each .row is a project -->
+          <div class="row">
+            <div class="col-lg-4 col-sm-12">
+              <div class="project-wrapper__text load-hidden">
+                <h3 class="project-wrapper__text-title">Weather App GUI</h3>
+                <div>
+                  <p class="mb-4">
+                    The Weather App is a Java-based application that provides users with real-time
+                    weather information for a specified location. It fetches weather data from an 
+                    external API and displays it in a graphical user interface (GUI). Users can 
+                    enter a location, and the app retrieves and presents weather details, including 
+                    temperature, weather condition, humidity, and wind speed.
+                  </p>
+                  <p>
+                      Class Summaries
+                      <ul style="font-size: 1.4em;">
+                        <li>
+                        The AppLauncher class serves as the entry point for the Weather App. It initializes the GUI and displays the main application window.</li>
+                        <li>
+                        The WeatherAppGui class represents the graphical user interface (GUI) of the Weather App. It is responsible for displaying weather information for a specified location.
+                        This class handles the layout and display of GUI components, including text fields, labels, buttons, and images. It also implements the user interface for entering a location and updating the weather information based on user input.</li>
+                        <li>
+                        The WeatherApp class contains the backend logic for fetching weather data from an external API. It retrieves geographic coordinates for a location, fetches weather data for that location, and provides methods to convert weather codes.
+                        This class encapsulates the core functionality of the Weather App. It includes methods to fetch weather data and location coordinates, convert weather codes into readable weather conditions, and manage API requests. This class acts as the bridge between the GUI and the external weather data source, ensuring that weather information is retrieved and displayed accurately.</li>
+                      </ul>
+                    </p>
+                    <p>
+                      Technologies Used
+                      <ul style="font-size: 1.4em;">
+                        <li>Java 17</li>
+                        <li>JSON Simple</li>
+                        <li>HTTPURLConnection</li>
+                      </ul>
+                    </p>
+                </div>
+                <a
+                  rel="noreferrer"
+                  target="_blank"
+                  class="cta-btn cta-btn--hero"
+                  href="https://github.com/gerzson-pszota/WeatherApp"
+                >
+                  Source Code
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-8 col-sm-12">
+              <div class="project-wrapper__image load-hidden">
+                <a rel="noreferrer" href="#!" target="_blank">
+                  <div
+                    data-tilt
+                    data-tilt-max="4"
+                    data-tilt-glare="true"
+                    data-tilt-max-glare="0.5"
+                    class="thumbnail rounded js-tilt"
+                  >
+                    <img
+                      alt="Project Image"
+                      class="img-fluid"
+                      src="assets/WeatherApp.gif"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /END Project -->
+          
           <!-- Notice: each .row is a project -->
           <div class="row">
             <div class="col-lg-4 col-sm-12">
