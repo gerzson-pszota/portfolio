@@ -20,7 +20,7 @@ export async function handler(event, context) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-5",   // version
+        model: "gpt-5-mini",   // version
         messages: [
           { role: "system", content: "Te egy barátságos magyar nyelvű asszisztens vagy, aki érthetően válaszol idősebb felhasználóknak." },
           { role: "user", content: userQuestion }
