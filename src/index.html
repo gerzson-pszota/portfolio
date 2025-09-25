@@ -44,7 +44,8 @@
     }
     .user, .bot, .loading {
       margin-bottom: 10px;
-      word-wrap: break-word;
+      word-wrap: break-word;       /* wrap long words */
+      white-space: pre-wrap;       /* preserve line breaks */
       padding: 8px 12px;
       border-radius: 8px;
       max-width: 90%;
@@ -97,6 +98,7 @@
       color: #ffd166;
       text-decoration: underline;
     }
+    /* Mobile tweaks */
     @media (max-width: 500px) {
       #userInput, button {
         flex: 1 1 100%;
@@ -107,6 +109,9 @@
       }
       h1 {
         font-size: 1.5rem;
+      }
+      #messages {
+        height: 300px; /* alacsonyabb chatablak mobilon */
       }
     }
   </style>
@@ -129,6 +134,7 @@
     sendBtn.addEventListener("click", sendMessage);
     input.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
 
+    // Converts URLs in text to clickable links
     function linkify(text) {
       const urlPattern = /(\b(https?:\/\/|www\.)[^\s]+)/gi;
       return text.replace(urlPattern, (url) => {
