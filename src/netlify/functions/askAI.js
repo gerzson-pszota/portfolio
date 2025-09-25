@@ -1,5 +1,7 @@
 // netlify/functions/askAI.js
 
+import fetch from "node-fetch"; 
+
 export async function handler(event, context) {
   try {
     const body = JSON.parse(event.body);
