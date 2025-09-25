@@ -4,37 +4,58 @@
   <meta charset="UTF-8">
   <title>Magyar AI</title>
   <style>
+    /* Dark mode background */
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f9;
+      background: #1e1e2f;
+      color: #e0e0e0;
       padding: 20px;
       margin: 0;
     }
     h1 {
       text-align: center;
       font-size: 1.8rem;
+      color: #ffffff;
     }
     #chatbox {
       width: 90%;
       max-width: 600px;
       margin: 20px auto;
-      background: white;
+      background: #2b2b3d;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     #messages {
-      height: 300px;
+      height: 450px; /* taller chat window */
       overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 10px;
+      border: 1px solid #444;
+      padding: 15px;
       margin-bottom: 10px;
-      border-radius: 5px;
-      background: #fafafa;
+      border-radius: 8px;
+      background: #1c1c2a;
     }
-    .user { color: blue; margin-bottom: 10px; word-wrap: break-word; }
-    .bot { color: green; margin-bottom: 10px; word-wrap: break-word; }
-    .loading { color: orange; margin-bottom: 10px; font-style: italic; }
+    .user, .bot, .loading {
+      margin-bottom: 10px;
+      word-wrap: break-word;
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 90%;
+      display: inline-block;
+    }
+    .user {
+      background: #3a3a5c;
+      color: #a0c4ff;
+      align-self: flex-end;
+    }
+    .bot {
+      background: #44446b;
+      color: #c1f0c1;
+    }
+    .loading {
+      color: #ffd166;
+      font-style: italic;
+    }
     #inputWrapper {
       display: flex;
       gap: 10px;
@@ -42,24 +63,35 @@
     }
     #userInput {
       flex: 1 1 60%;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
-      min-width: 0; /* important for flexbox input shrink */
+      min-width: 0;
+      border: 1px solid #555;
+      border-radius: 8px;
+      background: #2b2b3d;
+      color: #e0e0e0;
     }
     button {
       flex: 1 1 35%;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
       cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: #5567f0;
+      color: #fff;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #7689f5;
     }
     @media (max-width: 400px) {
       #userInput, button {
         flex: 1 1 100%;
       }
     }
-    /* Optional: style links inside bot messages */
     .bot a {
-      color: #1a73e8;
+      color: #ffd166;
       text-decoration: underline;
     }
   </style>
