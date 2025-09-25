@@ -2,26 +2,73 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Magyar AI Segítő</title>
+  <title>Magyar AI</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; }
-    h1 { text-align: center; }
-    #chatbox { width: 100%; max-width: 600px; margin: 20px auto; background: white; padding: 20px; border-radius: 10px; }
-    #messages { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-    .user { color: blue; margin-bottom: 10px; }
-    .bot { color: green; margin-bottom: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+    }
+    #chatbox {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #messages {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background: #fafafa;
+    }
+    .user { color: blue; margin-bottom: 10px; word-wrap: break-word; }
+    .bot { color: green; margin-bottom: 10px; word-wrap: break-word; }
     .loading { color: orange; margin-bottom: 10px; font-style: italic; }
-    input, button { padding: 10px; font-size: 16px; }
-    #userInput { width: 70%; }
-    button { width: 25%; }
+    #inputWrapper {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    #userInput {
+      flex: 1 1 60%;
+      padding: 10px;
+      font-size: 16px;
+      min-width: 0; /* important for flexbox input shrink */
+    }
+    button {
+      flex: 1 1 35%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Small screens tweaks */
+    @media (max-width: 400px) {
+      #userInput, button {
+        flex: 1 1 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>🤖 Magyar AI Segítő</h1>
+  <h1>🤖 Magyar AI</h1>
   <div id="chatbox">
     <div id="messages"></div>
-    <input id="userInput" type="text" placeholder="Írja ide a kérdését..." />
-    <button id="sendBtn">Küldés</button>
+    <div id="inputWrapper">
+      <input id="userInput" type="text" placeholder="Írja ide a kérdését..." />
+      <button id="sendBtn">Küldés</button>
+    </div>
   </div>
 
   <script>
@@ -40,7 +87,6 @@
       input.value = "";
       messages.scrollTop = messages.scrollHeight;
 
-      // Show loading indicator
       const loadingDiv = document.createElement("div");
       loadingDiv.className = "loading";
       loadingDiv.textContent = "AI gondolkodik...";
