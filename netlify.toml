@@ -1,9 +1,3 @@
 [build]
-  functions = "src/netlify/functions"
-  publish = "src"
-
-[functions]
-  node_bundler = "esbuild"
-
-[build.environment]
-  NODE_VERSION = "18"
+functions = "src/netlify/functions"
+publish = "src"
