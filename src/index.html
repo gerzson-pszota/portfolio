@@ -52,12 +52,15 @@
       font-size: 16px;
       cursor: pointer;
     }
-
-    /* Small screens tweaks */
     @media (max-width: 400px) {
       #userInput, button {
         flex: 1 1 100%;
       }
+    }
+    /* Optional: style links inside bot messages */
+    .bot a {
+      color: #1a73e8;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -78,6 +81,16 @@
 
     sendBtn.addEventListener("click", sendMessage);
     input.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+
+    // Converts URLs in text to clickable links
+    function linkify(text) {
+      const urlPattern = /(\b(https?:\/\/|www\.)[^\s]+)/gi;
+      return text.replace(urlPattern, (url) => {
+        let href = url;
+        if (!href.startsWith("http")) href = "https://" + href;
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+      });
+    }
 
     async function sendMessage() {
       const userText = input.value.trim();
@@ -103,7 +116,7 @@
         const data = await response.json();
 
         loadingDiv.remove();
-        messages.innerHTML += "<div class='bot'><b>AI:</b> " + (data.answer || "Sajnálom, nem tudtam választ adni.") + "</div>";
+        messages.innerHTML += "<div class='bot'><b>AI:</b> " + linkify(data.answer || "Sajnálom, nem tudtam választ adni.") + "</div>";
       } catch (err) {
         console.error("Fetch error:", err);
         loadingDiv.remove();
