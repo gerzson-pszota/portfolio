@@ -2,38 +2,45 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magyar AI</title>
   <style>
-    /* Dark mode background */
+    /* Full-screen dark mode layout */
     body {
       font-family: Arial, sans-serif;
       background: #1e1e2f;
       color: #e0e0e0;
-      padding: 20px;
       margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     h1 {
       text-align: center;
       font-size: 1.8rem;
       color: #ffffff;
+      margin: 10px 0;
     }
     #chatbox {
-      width: 90%;
-      max-width: 600px;
-      margin: 20px auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       background: #2b2b3d;
-      padding: 20px;
+      margin: 10px;
       border-radius: 12px;
+      padding: 15px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     #messages {
-      height: 450px; /* taller chat window */
+      flex: 1;
       overflow-y: auto;
       border: 1px solid #444;
       padding: 15px;
       margin-bottom: 10px;
       border-radius: 8px;
       background: #1c1c2a;
+      display: flex;
+      flex-direction: column;
     }
     .user, .bot, .loading {
       margin-bottom: 10px;
@@ -51,6 +58,7 @@
     .bot {
       background: #44446b;
       color: #c1f0c1;
+      align-self: flex-start;
     }
     .loading {
       color: #ffd166;
@@ -85,14 +93,21 @@
     button:hover {
       background: #7689f5;
     }
-    @media (max-width: 400px) {
-      #userInput, button {
-        flex: 1 1 100%;
-      }
-    }
     .bot a {
       color: #ffd166;
       text-decoration: underline;
+    }
+    @media (max-width: 500px) {
+      #userInput, button {
+        flex: 1 1 100%;
+      }
+      #chatbox {
+        margin: 0;
+        border-radius: 0;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -114,7 +129,6 @@
     sendBtn.addEventListener("click", sendMessage);
     input.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
 
-    // Converts URLs in text to clickable links
     function linkify(text) {
       const urlPattern = /(\b(https?:\/\/|www\.)[^\s]+)/gi;
       return text.replace(urlPattern, (url) => {
@@ -146,7 +160,6 @@
         });
 
         const data = await response.json();
-
         loadingDiv.remove();
         messages.innerHTML += "<div class='bot'><b>AI:</b> " + linkify(data.answer || "Sajnálom, nem tudtam választ adni.") + "</div>";
       } catch (err) {
