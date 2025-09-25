@@ -10,6 +10,7 @@
     #messages { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
     .user { color: blue; margin-bottom: 10px; }
     .bot { color: green; margin-bottom: 10px; }
+    .loading { color: orange; margin-bottom: 10px; font-style: italic; }
     input, button { padding: 10px; font-size: 16px; }
     #userInput { width: 70%; }
     button { width: 25%; }
@@ -20,31 +21,49 @@
   <div id="chatbox">
     <div id="messages"></div>
     <input id="userInput" type="text" placeholder="Írja ide a kérdését..." />
-    <button onclick="sendMessage()">Küldés</button>
+    <button id="sendBtn">Küldés</button>
   </div>
 
   <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const messages = document.getElementById("messages");
+    const input = document.getElementById("userInput");
+    const messages = document.getElementById("messages");
+    const sendBtn = document.getElementById("sendBtn");
 
-      const userText = input.value;
+    sendBtn.addEventListener("click", sendMessage);
+    input.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+
+    async function sendMessage() {
+      const userText = input.value.trim();
       if (!userText) return;
 
       messages.innerHTML += "<div class='user'><b>Ön:</b> " + userText + "</div>";
       input.value = "";
+      messages.scrollTop = messages.scrollHeight;
 
-      // 🔑 FONTOS: ezt ne így használd élesben, csak demonstráció!
-      // Itt kellene egy saját backend endpoint-ot meghívnod, ami az OpenAI API-hoz kapcsolódik.
+      // Show loading indicator
+      const loadingDiv = document.createElement("div");
+      loadingDiv.className = "loading";
+      loadingDiv.textContent = "AI gondolkodik...";
+      messages.appendChild(loadingDiv);
+      messages.scrollTop = messages.scrollHeight;
 
-      const response = await fetch("/.netlify/functions/askAI", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: userText })
-      });
+      try {
+        const response = await fetch("/.netlify/functions/askAI", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: userText })
+        });
 
-      const data = await response.json();
-      messages.innerHTML += "<div class='bot'><b>AI:</b> " + data.answer + "</div>";
+        const data = await response.json();
+
+        loadingDiv.remove();
+        messages.innerHTML += "<div class='bot'><b>AI:</b> " + (data.answer || "Sajnálom, nem tudtam választ adni.") + "</div>";
+      } catch (err) {
+        console.error("Fetch error:", err);
+        loadingDiv.remove();
+        messages.innerHTML += "<div class='bot'><b>AI:</b> Hiba történt a kapcsolódás során.</div>";
+      }
+
       messages.scrollTop = messages.scrollHeight;
     }
   </script>
